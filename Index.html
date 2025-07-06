@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre con Carta</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Overlay para el fondo -->
+  <div class="overlay" id="overlay"></div>
+
+  <div class="container">
+    <div class="envelope" id="envelope">
+      <div class="side-left"></div>
+      <div class="side-right"></div>
+      <div class="bottom"></div>
+      <div class="letter" id="letter">
+        <button class="close-btn" onclick="closeLetter()">&times;</button>
+        <div class="letter-content">
+          <p class="to"><strong>To: Crush</strong></p>
+          <p>Dear, you are so beautiful<br>That every time I see you<br>my world stops.</p>
+          <p class="signature" style="margin-top: 20px; font-style: italic;">With love ❤️</p>
+        </div>
+      </div>
+      <div class="flap" id="flap">
+        <svg width="300" height="90" viewBox="0 0 300 90" style="position:absolute;top:0;left:0;">
+          <polygon points="0,0 300,0 150,90" fill="#d84341" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button onclick="openLetter()">OPEN</button>
+    <button onclick="closeLetter()">CLOSE</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
