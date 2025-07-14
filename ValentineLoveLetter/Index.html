@@ -8,20 +8,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Intro GIF -->
+  <div id="intro-gif" class="intro-gif-container">
+    <img src="assets/Corazon-Cinnamoroll.gif" alt="Corazon Cinnamoroll" class="intro-gif">
+  </div>
+
   <!-- Overlay para el fondo -->
   <div class="overlay" id="overlay"></div>
 
-  <div class="container">
+  <!-- Cupids decorativos -->
+  <img src="assets/Cupid-Cinnamoroll.png" alt="Cupid Cinnamoroll" class="cupid cupid-left" id="cupidLeft">
+  <img src="assets/Cupid-Cinnamoroll.png" alt="Cupid Cinnamoroll" class="cupid cupid-right" id="cupidRight">
+  <img src="assets/Cupid-Cinnamoroll.png" alt="Cupid Cinnamoroll" class="cupid cupid-top-left" id="cupidTopLeft">
+  <img src="assets/Cupid-Cinnamoroll.png" alt="Cupid Cinnamoroll" class="cupid cupid-top-right" id="cupidTopRight">
+
+  <!-- Contenedor principal -->
+  <div class="container" id="main-container" style="display:none;">
     <div class="envelope" id="envelope">
       <div class="side-left"></div>
       <div class="side-right"></div>
       <div class="bottom"></div>
       <div class="letter" id="letter">
-        <button class="close-btn" onclick="closeLetter()">&times;</button>
         <div class="letter-content">
-          <p class="to"><strong>To: Crush</strong></p>
-          <p>Dear, you are so beautiful<br>That every time I see you<br>my world stops.</p>
-          <p class="signature" style="margin-top: 20px; font-style: italic;">With love ❤️</p>
+          <p class="to"><strong>Para: Jenny</strong></p>
+          <p>Me encantaría conocerte mejor, compartir una charla tranquila o una tarde especial contigo.</p>
+          <p>¿Te gustaría salir conmigo algún día? Sería un honor para mí.</p>
+          <p class="signature" style="margin-top: 20px; font-style: italic;">Con cariño, Elias ❤️</p>
         </div>
       </div>
       <div class="flap" id="flap">
@@ -32,7 +44,8 @@
     </div>
   </div>
 
-  <div class="controls">
+  <!-- Controles -->
+  <div class="controls" id="main-controls" style="display:none;">
     <button onclick="openLetter()">OPEN</button>
     <button onclick="closeLetter()">CLOSE</button>
   </div>

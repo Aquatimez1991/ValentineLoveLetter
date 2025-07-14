@@ -1,5 +1,16 @@
+:root {
+  --color-bg: #e7d9f0;
+  --color-envelope: #f95f4d;
+  --color-envelope-side: #ec7b77;
+  --color-flap: #d84341;
+  --color-border: #b44a4a;
+  --color-text: #b44a4a;
+  --color-btn: #f95f4d;
+  --color-btn-hover: #b44a4a;
+}
+
 body {
-  background-color: #e7d9f0;
+  background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +20,7 @@ body {
   margin: 0;
 }
 
+/* --- Envelope & Letter --- */
 .container {
   position: relative;
   width: 300px;
@@ -23,7 +35,7 @@ body {
   bottom: 0;
   width: 300px;
   height: 180px;
-  background: #f95f4d;
+  background: var(--color-envelope);
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
@@ -73,7 +85,7 @@ body {
   height: 0;
   border-left: 150px solid transparent;
   border-right: 150px solid transparent;
-  border-top: 90px solid #f95f4d;
+  border-top: 90px solid var(--color-envelope);
   transform: rotateX(180deg);
   backface-visibility: hidden;
   pointer-events: none;
@@ -98,13 +110,13 @@ body {
 .side-left {
   left: 0;
   border-width: 90px 0 90px 150px;
-  border-color: transparent transparent transparent #ec7b77;
+  border-color: transparent transparent transparent var(--color-envelope-side);
 }
 
 .side-right {
   right: 0;
   border-width: 90px 150px 90px 0;
-  border-color: transparent #ec7b77 transparent transparent;
+  border-color: transparent var(--color-envelope-side) transparent transparent;
 }
 
 .bottom {
@@ -115,12 +127,11 @@ body {
   height: 0;
   border-left: 150px solid transparent;
   border-right: 150px solid transparent;
-  border-bottom: 92px solid #f95f4d;
+  border-bottom: 92px solid var(--color-envelope);
   border-top: none;
   z-index: 4;
 }
 
-/* Clase independiente para la carta */
 .letter {
   position: absolute;
   left: 50%;
@@ -130,7 +141,7 @@ body {
   height: 120px;
   background-color: white;
   border-radius: 12px;
-  padding: 20px 12px 12px 12px;
+  padding: 40px 12px 12px 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.18);
   text-align: center;
   font-family: 'Dancing Script', cursive;
@@ -150,7 +161,6 @@ body {
   transform: translateX(-50%) translateY(-2px);
 }
 
-/* Estado expandido de la carta */
 .letter.expanded {
   left: 50%;
   top: 50%;
@@ -162,7 +172,7 @@ body {
   padding: 40px 30px;
   font-size: 1.4em;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border: 2px solid #b44a4a;
+  border: 2px solid var(--color-border);
   cursor: default;
 }
 
@@ -178,7 +188,7 @@ body {
   position: absolute;
   top: 15px;
   right: 20px;
-  background: #b44a4a;
+  background: var(--color-border);
   color: white;
   border: none;
   border-radius: 50%;
@@ -207,7 +217,7 @@ body {
   position: absolute;
   top: 15px;
   right: 20px;
-  background: #b44a4a;
+  background: var(--color-border);
   color: white;
   border: none;
   border-radius: 50%;
@@ -246,14 +256,15 @@ body {
   z-index: 3;
 }
 
+/* --- Controles --- */
 .controls {
   margin-top: 20px;
 }
 
 .controls button {
   background-color: transparent;
-  border: 2px solid #b44a4a;
-  color: #b44a4a;
+  border: 2px solid var(--color-border);
+  color: var(--color-border);
   padding: 8px 16px;
   margin: 0 10px;
   border-radius: 5px;
@@ -263,14 +274,15 @@ body {
 }
 
 .controls button:hover {
-  background-color: #b44a4a;
+  background-color: var(--color-border);
   color: white;
 }
 
+/* --- Texto de la carta --- */
 .letter p {
   margin: 6px 0;
   font-size: 16px;
-  color: #b44a4a;
+  color: var(--color-text);
 }
 
 .letter.expanded p {
@@ -278,18 +290,178 @@ body {
   line-height: 1.6;
 }
 
-.flap-back-svg {
+/* --- Cupids decorativos --- */
+.cupid {
   position: absolute;
-  top: -90px;
-  left: 0;
-  width: 300px;
-  height: 90px;
+  top: 50%;
+  width: 180px;
+  height: auto;
+  z-index: 10;
   opacity: 0;
   pointer-events: none;
-  z-index: 20;
-  transition: opacity 0.2s;
+  transform: translateY(-50%) scale(0.9);
+  transition: opacity 0.5s, transform 0.5s;
+  animation: cupid-float 2.5s ease-in-out infinite;
+}
+@keyframes cupid-float {
+  0% { transform: translateY(-50%) scale(0.9) translateY(0); }
+  50% { transform: translateY(-50%) scale(0.9) translateY(-25px); }
+  100% { transform: translateY(-50%) scale(0.9) translateY(0); }
+}
+@keyframes cupid-float-left {
+  0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-8deg); }
+  25%  { transform: translateY(-50%) scale(0.9) translate(-18px, -20px) rotate(-12deg); }
+  50%  { transform: translateY(-50%) scale(0.9) translate(0, -35px) rotate(-8deg); }
+  75%  { transform: translateY(-50%) scale(0.9) translate(18px, -20px) rotate(-4deg); }
+  100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-8deg); }
+}
+@keyframes cupid-float-right {
+  0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(8deg); }
+  25%  { transform: translateY(-50%) scale(0.9) translate(18px, -20px) rotate(12deg); }
+  50%  { transform: translateY(-50%) scale(0.9) translate(0, -35px) rotate(8deg); }
+  75%  { transform: translateY(-50%) scale(0.9) translate(-18px, -20px) rotate(4deg); }
+  100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(8deg); }
+}
+.cupid-left {
+  left: calc(50% - 390px);
+  animation: cupid-float-left 3.2s ease-in-out infinite;
+}
+.cupid-right {
+  right: calc(50% - 390px);
+  animation: cupid-float-right 3.2s ease-in-out infinite;
+}
+.envelope.open ~ .cupid-left,
+.envelope.open ~ .cupid-right {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1.1) rotate(-10deg);
+}
+.envelope.open ~ .cupid-right {
+  transform: translateY(-50%) scale(1.1) rotate(10deg);
+}
+.cupid.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cupid-top-left {
+  left: calc(50% - 320px);
+  top: 18%;
+  animation: cupid-float-topleft 2.7s ease-in-out infinite;
+}
+.cupid-top-right {
+  right: calc(50% - 320px);
+  top: 18%;
+  animation: cupid-float-topright 2.7s ease-in-out infinite;
+}
+@keyframes cupid-float-topleft {
+  0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-10deg); }
+  50%  { transform: translateY(-50%) scale(0.9) translate(-12px, -18px) rotate(-16deg); }
+  100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-10deg); }
+}
+@keyframes cupid-float-topright {
+  0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(10deg); }
+  50%  { transform: translateY(-50%) scale(0.9) translate(12px, -18px) rotate(16deg); }
+  100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(10deg); }
 }
 
-.envelope.open .flap-back-svg {
-  opacity: 1;
+/* --- Chispas brillantes --- */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 50;
+  animation: sparkle-float 2s ease-out forwards;
+  box-shadow: 0 0 6px #fff, 0 0 12px #ffd700, 0 0 18px #ffb6c1;
+}
+@keyframes sparkle-float {
+  0% {
+    opacity: 1;
+    transform: scale(0.5) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-40px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-80px);
+  }
+}
+
+/* --- Intro GIF --- */
+.intro-gif-container {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.intro-gif {
+  width: 50vw;
+  max-width: 520px;
+  min-width: 220px;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  display: block;
+}
+body.intro-active {
+  overflow: hidden;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .container {
+    width: 100vw;
+    height: 80vh;
+    min-width: 0;
+    min-height: 0;
+  }
+  .envelope {
+    width: 100vw;
+    height: 40vw;
+    min-width: 0;
+    min-height: 0;
+  }
+  .flap, .flap svg {
+    width: 100vw;
+    height: 20vw;
+    min-width: 0;
+    min-height: 0;
+  }
+  .letter {
+    width: 96vw;
+    min-width: 0;
+    left: 50%;
+    top: 10px;
+    font-size: 1.1em;
+    padding: 18px 8px 10px 8px;
+  }
+  .letter.expanded {
+    width: 98vw;
+    height: 80vh;
+    min-width: 0;
+    min-height: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1.01);
+    font-size: 1.25em;
+    padding: 24px 12px 18px 12px;
+    border-width: 2px;
+    overflow-y: auto;
+  }
+  .letter.expanded p {
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+}
+}
 }
