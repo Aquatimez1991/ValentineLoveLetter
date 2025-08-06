@@ -2,6 +2,36 @@
 let isLetterExpanded = false;
 let isEnvelopeOpen = false;
 
+// --- Audio Setup ---
+const audio = new Audio('assets/cina.mp3');
+audio.preload = 'auto';
+audio.volume = 0.7; // Ajusta el volumen (0.0 a 1.0)
+
+// Función para reproducir audio con manejo de errores
+const playAudio = () => {
+  try {
+    // Resetear el audio al inicio si ya se había reproducido
+    audio.currentTime = 0;
+    
+    // Intentar reproducir el audio
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log('Audio reproducido correctamente');
+        })
+        .catch(error => {
+          console.log('Error al reproducir audio:', error);
+          // El audio podría fallar debido a políticas del navegador
+          // En dispositivos móviles, el audio requiere interacción del usuario
+        });
+    }
+  } catch (error) {
+    console.log('Error al intentar reproducir audio:', error);
+  }
+};
+
 // --- Animaciones y efectos visuales ---
 
 // Chispas brillantes al abrir el sobre
@@ -70,6 +100,10 @@ const setupCupidsClickable = () => {
 // Abrir el sobre
 function openLetter() {
   if (isLetterExpanded) return;
+  
+  // ¡Reproducir sonido al abrir!
+  playAudio();
+  
   gsap.to("#flap", { rotationX: -180, transformOrigin: "top center", duration: 0.7, ease: "power2.inOut" });
   document.getElementById('envelope').classList.add('open');
   const letter = document.getElementById('letter');
@@ -139,9 +173,25 @@ function collapseLetter() {
   overlay.removeEventListener('click', collapseLetter);
 }
 
+// --- Precargar audio y manejar interacción del usuario ---
+const enableAudio = () => {
+  // En algunos navegadores, especialmente móviles, necesitamos que el usuario
+  // interactúe primero con la página para poder reproducir audio
+  document.removeEventListener('click', enableAudio);
+  document.removeEventListener('touchstart', enableAudio);
+  
+  // Intentar cargar el audio
+  audio.load();
+};
+
 // --- Intro GIF y carga inicial ---
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('intro-active');
+  
+  // Configurar eventos para habilitar audio en móviles
+  document.addEventListener('click', enableAudio);
+  document.addEventListener('touchstart', enableAudio);
+  
   setTimeout(() => {
     document.getElementById('intro-gif').style.display = 'none';
     document.getElementById('main-container').style.display = '';
