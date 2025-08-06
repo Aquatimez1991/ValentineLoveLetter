@@ -9,15 +9,21 @@
   --color-btn-hover: #b44a4a;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* --- Envelope & Letter --- */
@@ -27,6 +33,7 @@ body {
   height: 350px;
   perspective: 1000px;
   overflow: visible;
+  margin: 20px auto;
 }
 
 .envelope {
@@ -259,6 +266,7 @@ body {
 /* --- Controles --- */
 .controls {
   margin-top: 20px;
+  text-align: center;
 }
 
 .controls button {
@@ -271,6 +279,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  min-width: 60px;
 }
 
 .controls button:hover {
@@ -303,11 +312,13 @@ body {
   transition: opacity 0.5s, transform 0.5s;
   animation: cupid-float 2.5s ease-in-out infinite;
 }
+
 @keyframes cupid-float {
   0% { transform: translateY(-50%) scale(0.9) translateY(0); }
   50% { transform: translateY(-50%) scale(0.9) translateY(-25px); }
   100% { transform: translateY(-50%) scale(0.9) translateY(0); }
 }
+
 @keyframes cupid-float-left {
   0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-8deg); }
   25%  { transform: translateY(-50%) scale(0.9) translate(-18px, -20px) rotate(-12deg); }
@@ -315,6 +326,7 @@ body {
   75%  { transform: translateY(-50%) scale(0.9) translate(18px, -20px) rotate(-4deg); }
   100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-8deg); }
 }
+
 @keyframes cupid-float-right {
   0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(8deg); }
   25%  { transform: translateY(-50%) scale(0.9) translate(18px, -20px) rotate(12deg); }
@@ -322,42 +334,51 @@ body {
   75%  { transform: translateY(-50%) scale(0.9) translate(-18px, -20px) rotate(4deg); }
   100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(8deg); }
 }
+
 .cupid-left {
   left: calc(50% - 390px);
   animation: cupid-float-left 3.2s ease-in-out infinite;
 }
+
 .cupid-right {
   right: calc(50% - 390px);
   animation: cupid-float-right 3.2s ease-in-out infinite;
 }
+
 .envelope.open ~ .cupid-left,
 .envelope.open ~ .cupid-right {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-50%) scale(1.1) rotate(-10deg);
 }
+
 .envelope.open ~ .cupid-right {
   transform: translateY(-50%) scale(1.1) rotate(10deg);
 }
+
 .cupid.show {
   opacity: 1;
   pointer-events: auto;
 }
+
 .cupid-top-left {
   left: calc(50% - 320px);
   top: 18%;
   animation: cupid-float-topleft 2.7s ease-in-out infinite;
 }
+
 .cupid-top-right {
   right: calc(50% - 320px);
   top: 18%;
   animation: cupid-float-topright 2.7s ease-in-out infinite;
 }
+
 @keyframes cupid-float-topleft {
   0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-10deg); }
   50%  { transform: translateY(-50%) scale(0.9) translate(-12px, -18px) rotate(-16deg); }
   100% { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(-10deg); }
 }
+
 @keyframes cupid-float-topright {
   0%   { transform: translateY(-50%) scale(0.9) translate(0, 0) rotate(10deg); }
   50%  { transform: translateY(-50%) scale(0.9) translate(12px, -18px) rotate(16deg); }
@@ -376,6 +397,7 @@ body {
   animation: sparkle-float 2s ease-out forwards;
   box-shadow: 0 0 6px #fff, 0 0 12px #ffd700, 0 0 18px #ffb6c1;
 }
+
 @keyframes sparkle-float {
   0% {
     opacity: 1;
@@ -403,6 +425,7 @@ body {
   justify-content: center;
   z-index: 2000;
 }
+
 .intro-gif {
   width: 50vw;
   max-width: 520px;
@@ -413,55 +436,242 @@ body {
   background: none;
   display: block;
 }
+
 body.intro-active {
   overflow: hidden;
 }
 
-/* --- Responsive --- */
-@media (max-width: 600px) {
+/* === MEDIA QUERIES RESPONSIVE === */
+
+/* Tablets (768px y hacia abajo) */
+@media (max-width: 768px) {
   .container {
-    width: 100vw;
-    height: 80vh;
-    min-width: 0;
-    min-height: 0;
+    width: 280px;
+    height: 320px;
   }
+  
   .envelope {
-    width: 100vw;
-    height: 40vw;
-    min-width: 0;
-    min-height: 0;
+    width: 280px;
+    height: 168px;
   }
+  
   .flap, .flap svg {
-    width: 100vw;
-    height: 20vw;
-    min-width: 0;
-    min-height: 0;
+    width: 280px;
+    height: 84px;
   }
-  .letter {
-    width: 96vw;
-    min-width: 0;
-    left: 50%;
-    top: 10px;
-    font-size: 1.1em;
-    padding: 18px 8px 10px 8px;
+  
+  .flap::after {
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 84px solid var(--color-envelope);
   }
+  
+  .side-left {
+    border-width: 84px 0 84px 140px;
+  }
+  
+  .side-right {
+    border-width: 84px 140px 84px 0;
+  }
+  
+  .bottom {
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 86px solid var(--color-envelope);
+  }
+  
   .letter.expanded {
-    width: 98vw;
+    width: 90vw;
+    height: 70vh;
+    transform: translate(-50%, -50%) scale(1.1);
+    font-size: 1.2em;
+    padding: 30px 20px;
+  }
+  
+  .cupid {
+    width: 120px;
+  }
+  
+  .cupid-left {
+    left: calc(50% - 280px);
+  }
+  
+  .cupid-right {
+    right: calc(50% - 280px);
+  }
+  
+  .cupid-top-left {
+    left: calc(50% - 240px);
+  }
+  
+  .cupid-top-right {
+    right: calc(50% - 240px);
+  }
+}
+
+/* Móviles (480px y hacia abajo) */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  .container {
+    width: 90vw;
+    max-width: 260px;
+    height: 300px;
+    margin: 10px auto;
+  }
+  
+  .envelope {
+    width: 100%;
+    height: 60vw;
+    max-height: 156px;
+  }
+  
+  .flap, .flap svg {
+    width: 100%;
+    height: 30vw;
+    max-height: 78px;
+  }
+  
+  .flap::after {
+    border-left: 50% solid transparent;
+    border-right: 50% solid transparent;
+    border-top: 30vw solid var(--color-envelope);
+    max-border-top-width: 78px;
+  }
+  
+  .side-left {
+    border-width: 30vw 0 30vw 50%;
+    max-border-width: 78px 0 78px 50%;
+  }
+  
+  .side-right {
+    border-width: 30vw 50% 30vw 0;
+    max-border-width: 78px 50% 78px 0;
+  }
+  
+  .bottom {
+    border-left: 50% solid transparent;
+    border-right: 50% solid transparent;
+    border-bottom: calc(30vw + 2px) solid var(--color-envelope);
+    max-border-bottom-width: 80px;
+  }
+  
+  .letter {
+    width: 85%;
+    padding: 30px 8px 8px 8px;
+    font-size: 0.9em;
+    height: 100px;
+  }
+  
+  .letter p {
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  
+  .letter.expanded {
+    width: 95vw;
     height: 80vh;
-    min-width: 0;
-    min-height: 0;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1.01);
-    font-size: 1.25em;
-    padding: 24px 12px 18px 12px;
-    border-width: 2px;
+    transform: translate(-50%, -50%) scale(1.0);
+    font-size: 1.1em;
+    padding: 25px 15px;
     overflow-y: auto;
   }
+  
   .letter.expanded p {
-    font-size: 1.2em;
+    font-size: 16px;
     line-height: 1.5;
   }
+  
+  .letter.expanded .close-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    top: 10px;
+    right: 15px;
+  }
+  
+  .controls {
+    margin-top: 15px;
+  }
+  
+  .controls button {
+    padding: 10px 20px;
+    margin: 0 8px;
+    font-size: 14px;
+    min-width: 70px;
+  }
+  
+  /* Ocultar cupids en móviles para mejor rendimiento */
+  .cupid {
+    display: none;
+  }
+  
+  .intro-gif {
+    width: 70vw;
+    max-width: 300px;
+  }
 }
+
+/* Móviles muy pequeños (320px y hacia abajo) */
+@media (max-width: 320px) {
+  .container {
+    width: 95vw;
+    max-width: 240px;
+    height: 280px;
+  }
+  
+  .letter {
+    font-size: 0.8em;
+    padding: 25px 6px 6px 6px;
+  }
+  
+  .letter p {
+    font-size: 12px;
+  }
+  
+  .letter.expanded {
+    width: 98vw;
+    height: 85vh;
+    padding: 20px 12px;
+  }
+  
+  .letter.expanded p {
+    font-size: 14px;
+  }
+  
+  .controls button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    font-size: 13px;
+    min-width: 65px;
+  }
 }
+
+/* Orientación horizontal en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+  
+  .container {
+    height: 250px;
+    margin: 10px auto;
+  }
+  
+  .envelope {
+    height: 120px;
+  }
+  
+  .flap, .flap svg {
+    height: 60px;
+  }
+  
+  .letter.expanded {
+    width: 90vw;
+    height: 90vh;
+    max-height: 400px;
+  }
 }
