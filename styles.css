@@ -29,30 +29,30 @@ body {
 /* --- Envelope & Letter --- */
 .container {
   position: relative;
-  width: 300px;
-  height: 350px;
+  width: 400px;
+  height: 450px;
   perspective: 1000px;
   overflow: visible;
-  margin: 20px auto;
+  margin: 40px auto 60px auto;
 }
 
 .envelope {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 300px;
-  height: 180px;
+  width: 400px;
+  height: 240px;
   background: var(--color-envelope);
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 .flap {
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 90px;
+  width: 400px;
+  height: 120px;
   transform-origin: top center;
   transform: rotateX(0deg);
   z-index: 1;
@@ -64,7 +64,7 @@ body {
   display: block;
   position: absolute;
   top: 0; left: 0;
-  width: 300px; height: 90px;
+  width: 400px; height: 120px;
   pointer-events: none;
   z-index: 2;
 }
@@ -90,9 +90,9 @@ body {
   left: 0;
   width: 0;
   height: 0;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  border-top: 90px solid var(--color-envelope);
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-top: 120px solid var(--color-envelope);
   transform: rotateX(180deg);
   backface-visibility: hidden;
   pointer-events: none;
@@ -116,13 +116,13 @@ body {
 
 .side-left {
   left: 0;
-  border-width: 90px 0 90px 150px;
+  border-width: 120px 0 120px 200px;
   border-color: transparent transparent transparent var(--color-envelope-side);
 }
 
 .side-right {
   right: 0;
-  border-width: 90px 150px 90px 0;
+  border-width: 120px 200px 120px 0;
   border-color: transparent var(--color-envelope-side) transparent transparent;
 }
 
@@ -132,9 +132,9 @@ body {
   left: 0;
   width: 0;
   height: 0;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  border-bottom: 92px solid var(--color-envelope);
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-bottom: 122px solid var(--color-envelope);
   border-top: none;
   z-index: 4;
 }
@@ -142,17 +142,17 @@ body {
 .letter {
   position: absolute;
   left: 50%;
-  top: 10px;
+  top: 15px;
   transform: translateX(-50%);
-  width: 80%;
-  height: 120px;
+  width: 85%;
+  height: 160px;
   background-color: white;
-  border-radius: 12px;
-  padding: 40px 12px 12px 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  border-radius: 15px;
+  padding: 50px 18px 18px 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
   text-align: center;
   font-family: 'Dancing Script', cursive;
-  font-size: 1.1em;
+  font-size: 1.3em;
   z-index: 2;
   opacity: 0;
   cursor: pointer;
@@ -164,22 +164,22 @@ body {
 }
 
 .letter:hover {
-  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
-  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  transform: translateX(-50%) translateY(-3px);
 }
 
 .letter.expanded {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(1.5);
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height: 400px;
   z-index: 1001;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  padding: 40px 30px;
-  font-size: 1.4em;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+  padding: 50px 40px;
+  font-size: 1.6em;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border: 2px solid var(--color-border);
+  border: 3px solid var(--color-border);
   cursor: default;
 }
 
@@ -265,21 +265,22 @@ body {
 
 /* --- Controles --- */
 .controls {
-  margin-top: 20px;
+  margin-top: 50px;
   text-align: center;
 }
 
 .controls button {
   background-color: transparent;
-  border: 2px solid var(--color-border);
+  border: 3px solid var(--color-border);
   color: var(--color-border);
-  padding: 8px 16px;
-  margin: 0 10px;
-  border-radius: 5px;
+  padding: 12px 24px;
+  margin: 0 15px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
-  min-width: 60px;
+  min-width: 80px;
+  font-size: 16px;
 }
 
 .controls button:hover {
@@ -289,13 +290,13 @@ body {
 
 /* --- Texto de la carta --- */
 .letter p {
-  margin: 6px 0;
-  font-size: 16px;
+  margin: 8px 0;
+  font-size: 18px;
   color: var(--color-text);
 }
 
 .letter.expanded p {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.6;
 }
 
@@ -303,7 +304,7 @@ body {
 .cupid {
   position: absolute;
   top: 50%;
-  width: 180px;
+  width: 200px;
   height: auto;
   z-index: 10;
   opacity: 0;
@@ -336,12 +337,12 @@ body {
 }
 
 .cupid-left {
-  left: calc(50% - 390px);
+  left: calc(50% - 450px);
   animation: cupid-float-left 3.2s ease-in-out infinite;
 }
 
 .cupid-right {
-  right: calc(50% - 390px);
+  right: calc(50% - 450px);
   animation: cupid-float-right 3.2s ease-in-out infinite;
 }
 
@@ -362,13 +363,13 @@ body {
 }
 
 .cupid-top-left {
-  left: calc(50% - 320px);
+  left: calc(50% - 380px);
   top: 18%;
   animation: cupid-float-topleft 2.7s ease-in-out infinite;
 }
 
 .cupid-top-right {
-  right: calc(50% - 320px);
+  right: calc(50% - 380px);
   top: 18%;
   animation: cupid-float-topright 2.7s ease-in-out infinite;
 }
@@ -446,66 +447,76 @@ body.intro-active {
 /* Tablets (768px y hacia abajo) */
 @media (max-width: 768px) {
   .container {
-    width: 280px;
-    height: 320px;
+    width: 350px;
+    height: 400px;
+    margin: 30px auto 50px auto;
   }
   
   .envelope {
-    width: 280px;
-    height: 168px;
+    width: 350px;
+    height: 210px;
   }
   
   .flap, .flap svg {
-    width: 280px;
-    height: 84px;
+    width: 350px;
+    height: 105px;
   }
   
   .flap::after {
-    border-left: 140px solid transparent;
-    border-right: 140px solid transparent;
-    border-top: 84px solid var(--color-envelope);
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-top: 105px solid var(--color-envelope);
   }
   
   .side-left {
-    border-width: 84px 0 84px 140px;
+    border-width: 105px 0 105px 175px;
   }
   
   .side-right {
-    border-width: 84px 140px 84px 0;
+    border-width: 105px 175px 105px 0;
   }
   
   .bottom {
-    border-left: 140px solid transparent;
-    border-right: 140px solid transparent;
-    border-bottom: 86px solid var(--color-envelope);
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-bottom: 107px solid var(--color-envelope);
+  }
+  
+  .letter {
+    height: 140px;
+    font-size: 1.2em;
   }
   
   .letter.expanded {
     width: 90vw;
     height: 70vh;
     transform: translate(-50%, -50%) scale(1.1);
-    font-size: 1.2em;
-    padding: 30px 20px;
+    font-size: 1.3em;
+    padding: 35px 25px;
+  }
+  
+  .controls {
+    margin-top: 40px;
   }
   
   .cupid {
-    width: 120px;
+    width: 140px;
   }
   
   .cupid-left {
-    left: calc(50% - 280px);
+    left: calc(50% - 350px);
   }
   
   .cupid-right {
-    right: calc(50% - 280px);
+    right: calc(50% - 350px);
   }
   
   .cupid-top-left {
-    left: calc(50% - 240px);
+    left: calc(50% - 300px);
   }
   
   .cupid-top-right {
-    right: calc(50% - 240px);
+    right: calc(50% - 300px);
   }
 }
 
