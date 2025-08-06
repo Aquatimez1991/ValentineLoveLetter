@@ -278,14 +278,28 @@ body {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   min-width: 80px;
   font-size: 16px;
+  position: relative;
+  overflow: hidden;
 }
 
 .controls button:hover {
   background-color: var(--color-border);
   color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(180, 74, 74, 0.3);
+}
+
+.controls button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(180, 74, 74, 0.2);
+}
+
+.controls button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(180, 74, 74, 0.2);
 }
 
 /* --- Texto de la carta --- */
