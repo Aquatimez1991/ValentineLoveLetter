@@ -56,17 +56,17 @@ const createSparkles = () => {
 };
 
 // Corazones al hacer clic en los Cupids
-const createHeartAtCupid = cupid => {
-  const rect = cupid.getBoundingClientRect();
-  const container = document.body;
-  const heart = document.createElement('div');
-  heart.className = 'heart-pop';
-  heart.innerHTML = `<svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 29s-8.5-7.1-11.3-10.2C2.1 16.1 1 13.7 1 11.5 1 7.4 4.4 4 8.5 4c2.1 0 4.1 1 5.5 2.6C15.4 5 17.4 4 19.5 4 23.6 4 27 7.4 27 11.5c0 2.2-1.1 4.6-3.7 7.3C24.5 21.9 16 29 16 29z" fill="#e2557e"/></svg>`;
-  heart.style.left = (rect.left + rect.width / 2 - 16) + 'px';
-  heart.style.top = (rect.top + rect.height / 2 - 16 + window.scrollY) + 'px';
-  container.appendChild(heart);
-  setTimeout(() => heart.remove(), 1300);
-};
+//const createHeartAtCupid = cupid => {
+//  const rect = cupid.getBoundingClientRect();
+//  const container = document.body;
+//  const heart = document.createElement('div');
+//  heart.className = 'heart-pop';
+//  heart.innerHTML = `<svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 29s-8.5-7.1-11.3-10.2C2.1 16.1 1 13.7 1 11.5 1 7.4 4.4 4 8.5 4c2.1 0 4.1 1 5.5 2.6C15.4 5 17.4 4 19.5 4 23.6 4 27 7.4 27 11.5c0 2.2-1.1 4.6-3.7 7.3C24.5 21.9 16 29 16 29z" fill="#e2557e"/></svg>`;
+//  heart.style.left = (rect.left + rect.width / 2 - 16) + 'px';
+//  heart.style.top = (rect.top + rect.height / 2 - 16 + window.scrollY) + 'px';
+//  container.appendChild(heart);
+//  setTimeout(() => heart.remove(), 1300);
+//};
 
 // Animación divertida al hacer clic en un Cupid
 const animateCupid = cupid => {
