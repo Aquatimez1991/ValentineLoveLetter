@@ -3,7 +3,7 @@ let isLetterExpanded = false;
 let isEnvelopeOpen = false;
 
 // --- Audio Setup ---
-const audio = new Audio('assets/cina.mp3');
+const audio = new Audio('assets/');
 audio.preload = 'auto';
 audio.volume = 0.7; // Ajusta el volumen (0.0 a 1.0)
 
@@ -12,10 +12,10 @@ const playAudio = () => {
   try {
     // Resetear el audio al inicio si ya se había reproducido
     audio.currentTime = 0;
-    
+
     // Intentar reproducir el audio
     const playPromise = audio.play();
-    
+
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
@@ -44,8 +44,8 @@ const createSparkles = () => {
       for (let i = 0; i < 25; i++) {
         const sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
-        const x = rect.left + rect.width/2 + (Math.random() - 0.5) * 200;
-        const y = rect.top + rect.height/2 + (Math.random() - 0.5) * 120;
+        const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 200;
+        const y = rect.top + rect.height / 2 + (Math.random() - 0.5) * 120;
         sparkle.style.left = x + 'px';
         sparkle.style.top = y + window.scrollY + 'px';
         container.appendChild(sparkle);
@@ -62,8 +62,8 @@ const createHeartAtCupid = cupid => {
   const heart = document.createElement('div');
   heart.className = 'heart-pop';
   heart.innerHTML = `<svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 29s-8.5-7.1-11.3-10.2C2.1 16.1 1 13.7 1 11.5 1 7.4 4.4 4 8.5 4c2.1 0 4.1 1 5.5 2.6C15.4 5 17.4 4 19.5 4 23.6 4 27 7.4 27 11.5c0 2.2-1.1 4.6-3.7 7.3C24.5 21.9 16 29 16 29z" fill="#e2557e"/></svg>`;
-  heart.style.left = (rect.left + rect.width/2 - 16) + 'px';
-  heart.style.top = (rect.top + rect.height/2 - 16 + window.scrollY) + 'px';
+  heart.style.left = (rect.left + rect.width / 2 - 16) + 'px';
+  heart.style.top = (rect.top + rect.height / 2 - 16 + window.scrollY) + 'px';
   container.appendChild(heart);
   setTimeout(() => heart.remove(), 1300);
 };
@@ -78,7 +78,7 @@ const animateCupid = cupid => {
   }, 80);
 };
 
-// Hacer Cupids clickeables
+// Hacer Cupids clickeables y arrastrables
 const setupCupidsClickable = () => {
   const cupids = [
     document.getElementById('cupidLeft'),
@@ -86,13 +86,107 @@ const setupCupidsClickable = () => {
     document.getElementById('cupidTopLeft'),
     document.getElementById('cupidTopRight')
   ];
+
   cupids.forEach(cupid => {
-    cupid.onclick = e => {
+    // Añadir lógica de arrastre
+    makeDraggable(cupid);
+
+    // Mantener el click solo si NO se ha arrastrado
+    cupid.addEventListener('click', e => {
+      if (cupid.getAttribute('data-dragged') === 'true') {
+        cupid.setAttribute('data-dragged', 'false');
+        return; // Ignorar click si fue un arrastre
+      }
       e.stopPropagation();
       animateCupid(cupid);
       createHeartAtCupid(cupid);
-    };
+    });
   });
+};
+
+// Función para hacer elementos arrastrables
+const makeDraggable = (elmnt) => {
+  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  let isDragging = false;
+  let startX = 0, startY = 0;
+
+  const dragMouseDown = (e) => {
+    e = e || window.event;
+    // Obtener la posición o toque inicial
+    const clientX = e.clientX || e.touches[0].clientX;
+    const clientY = e.clientY || e.touches[0].clientY;
+
+    e.preventDefault();
+
+    // Obtener posición inicial del cursor
+    pos3 = clientX;
+    pos4 = clientY;
+
+    // Guardar posición inicial para detectar si fue un click o un drag
+    startX = clientX;
+    startY = clientY;
+    isDragging = false;
+    elmnt.setAttribute('data-dragged', 'false');
+
+    // Preparar elemento para arrastre: congelar posición actual
+    const rect = elmnt.getBoundingClientRect();
+
+    // IMPORTANTE: Fijar las coordenadas actuales antes de quitar la animación
+    // Esto evita que el elemento "salte" a su posición original
+    elmnt.style.left = (rect.left + window.scrollX) + 'px';
+    elmnt.style.top = (rect.top + window.scrollY) + 'px';
+    elmnt.style.right = 'auto'; // Limpiar propiedades conflictivas
+    elmnt.style.bottom = 'auto';
+    elmnt.style.transform = 'none'; // Quitar transformaciones de la animación
+
+    elmnt.classList.add('dragging');
+
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+
+    // Eventos táctiles
+    document.ontouchend = closeDragElement;
+    document.ontouchmove = elementDrag;
+  };
+
+  const elementDrag = (e) => {
+    e = e || window.event;
+    const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+    const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+
+    e.preventDefault();
+
+    // Calcular nueva posición del cursor
+    pos1 = pos3 - clientX;
+    pos2 = pos4 - clientY;
+    pos3 = clientX;
+    pos4 = clientY;
+
+    // Detectar si se ha movido lo suficiente para considerarlo arrastre
+    if (Math.abs(clientX - startX) > 5 || Math.abs(clientY - startY) > 5) {
+      isDragging = true;
+      elmnt.setAttribute('data-dragged', 'true');
+    }
+
+    // Establecer nueva posición del elemento
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  };
+
+  const closeDragElement = () => {
+    // Parar de mover
+    document.onmouseup = null;
+    document.onmousemove = null;
+    document.ontouchend = null;
+    document.ontouchmove = null;
+
+    elmnt.classList.remove('dragging');
+
+    // Nota: No restauramos la animación para que se quede donde lo soltó el usuario
+  };
+
+  elmnt.onmousedown = dragMouseDown;
+  elmnt.ontouchstart = dragMouseDown;
 };
 
 // --- Lógica de la carta y el sobre ---
@@ -100,10 +194,10 @@ const setupCupidsClickable = () => {
 // Abrir el sobre
 function openLetter() {
   if (isLetterExpanded) return;
-  
+
   // ¡Reproducir sonido al abrir!
   playAudio();
-  
+
   gsap.to("#flap", { rotationX: -180, transformOrigin: "top center", duration: 0.7, ease: "power2.inOut" });
   document.getElementById('envelope').classList.add('open');
   const letter = document.getElementById('letter');
@@ -179,7 +273,7 @@ const enableAudio = () => {
   // interactúe primero con la página para poder reproducir audio
   document.removeEventListener('click', enableAudio);
   document.removeEventListener('touchstart', enableAudio);
-  
+
   // Intentar cargar el audio
   audio.load();
 };
@@ -187,11 +281,11 @@ const enableAudio = () => {
 // --- Intro GIF y carga inicial ---
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('intro-active');
-  
+
   // Configurar eventos para habilitar audio en móviles
   document.addEventListener('click', enableAudio);
   document.addEventListener('touchstart', enableAudio);
-  
+
   setTimeout(() => {
     document.getElementById('intro-gif').style.display = 'none';
     document.getElementById('main-container').style.display = '';
